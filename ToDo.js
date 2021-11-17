@@ -1,26 +1,13 @@
-const list = [
-    {
-        id: 1,
-        name: 'create a post',
-        status: 'TODO',
-        priority: 'low'
-    },
-    {
-        id: 2,
-        name: 'test',
-        status: 'Done',
-        priority: 'high'
-    }
-]
+const list = []                                                                                                         // Инициализация массива задач
 
-let incr = 2;
+let incr = 0;                                                                                                           // id для задач
 
-function addTask(Task,Priority) {
+function addTask(Task,Priority) {                                                                                       // Функция добавления задач
     list.push({id: incr+1, name: Task, status: 'TODO', priorty: Priority})
     incr += 1;
 }
 
-function changeStatus(Task, Status) {
+function changeStatus(Task, Status) {                                                                                   // Функция смены статуса
     for (key of list) {
         if (key.name === Task) {
             key.status = Status
@@ -28,7 +15,7 @@ function changeStatus(Task, Status) {
     }
 }
 
-function deleteTask(Task) {
+function deleteTask(Task) {                                                                                             // Функция удаления задач
     for (let i = 0; i < list.length; i++) {
         if (list[i].name === Task) {
             list.splice(i, 1)
@@ -36,30 +23,26 @@ function deleteTask(Task) {
     }
 }
 
-
-changeStatus('create a post', 'In Progress')
-addTask('Writing task', 'high')
-list.pop()
+//                             Смена статуса, добавление, удаление задач для проверки
 
 addTask('Reading task', 'low')
-
 addTask('Writing task', 'high')
-
 deleteTask('Reading task')
-
 addTask('Reading task', 'low')
+addTask('test', 'low')
+addTask('Homework', 'high')
+changeStatus('test', 'In Progress')
+changeStatus('Homework', 'Done')
 
 
-console.log(list)
 
+function showList() {                                                                                                   // Функция вывода текущих задач
 
-function showList() {
-
-    console.log("Todo:");
+    console.log("TODO:");
     let sum = 0;                                                                                                        // Счётчик для вывода "-"
-    for (key in list) {
-        if (list[key] === "To Do") {
-            console.log(` "${key}",`);
+    for (key of list) {
+        if (key.status === "TODO") {
+            console.log(` "${key.name}",`);
             sum += 1;
         }
     }
@@ -69,9 +52,9 @@ function showList() {
 
     console.log("In Progress:")
     sum = 0;                                                                                                            // Оббнуление счётчика перед выводом "In Progress:"
-    for (key in list) {
-        if (list[key] === "In Progress") {
-            console.log(` "${key}",`);
+    for (key of list) {
+        if (key.status === "In Progress") {
+            console.log(` "${key.name}",`);
             sum += 1;
         }
     }
@@ -81,9 +64,9 @@ function showList() {
 
     console.log("Done:");
     sum = 0;                                                                                                            // Обнуление счётчика перед выводом "Done:"
-    for (key in list) {
-        if (list[key] === "Done") {
-            console.log(` "${key}",`);
+    for (key of list) {
+        if (key.status === "Done") {
+            console.log(` "${key.name}",`);
             sum += 1;
         }
     }
@@ -92,5 +75,4 @@ function showList() {
     }
 }
 
-
-// showList();
+showList();
